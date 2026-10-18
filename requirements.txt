@@ -1,0 +1,10 @@
+# ADS 505 — Flight Departure Delay Prediction
+# Pin loosely for coursework reproducibility; exact versions can be tightened later.
+
+numpy>=1.24
+pandas>=2.0
+matplotlib>=3.7
+seaborn>=0.13
+scikit-learn>=1.3
+jupyter>=1.0
+notebook>=7.0
