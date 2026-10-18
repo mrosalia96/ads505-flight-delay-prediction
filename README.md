@@ -54,7 +54,7 @@ src/               # download and build helpers
 requirements.txt
 ```
 
-Course PDFs and business briefs are kept outside this repository (local course folder), not in GitHub.
+Course deliverables (business brief, executive slides, PDFs) live in the local ADS505 course folder only, not in this GitHub repository.
 
 ## Contributions
 
