@@ -54,6 +54,8 @@ src/               # download and build helpers
 requirements.txt
 ```
 
+Course PDFs and business briefs are kept outside this repository (local course folder), not in GitHub.
+
 ## Contributions
 
 | Member | Work |
