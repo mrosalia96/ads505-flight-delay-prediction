@@ -52,16 +52,22 @@ ads505-flight-delay-prediction/
    cd ads505-flight-delay-prediction
    ```
 
-2. Create and activate a virtual environment (recommended):
+2. Create and activate the project conda env (recommended):
+
+   ```bash
+   conda create -n ads505 python=3.11 -y
+   conda activate ads505
+   pip install -r requirements.txt ipykernel
+   python -m ipykernel install --user --name ads505 --display-name "Python (ads505)"
+   ```
+
+   In Jupyter / Cursor, select kernel **Python (ads505)**.
+
+3. Or use a venv instead:
 
    ```bash
    python3 -m venv .venv
    source .venv/bin/activate   # Windows: .venv\Scripts\activate
-   ```
-
-3. Install dependencies:
-
-   ```bash
    pip install -r requirements.txt
    ```
 
