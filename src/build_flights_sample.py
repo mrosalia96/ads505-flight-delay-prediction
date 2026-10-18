@@ -100,14 +100,18 @@ def build_sample(
     flights = pd.concat(pieces, ignore_index=True)
     flights["FlightDate"] = pd.to_datetime(flights["FlightDate"], errors="coerce")
 
+    # Avoid Arrow extension-dtype edge cases across pandas/pyarrow versions
+    for col in flights.select_dtypes(include=["object"]).columns:
+        flights[col] = flights[col].astype("string").astype(object)
+
     out_parquet = out_dir / f"flights_origins_{year}.parquet"
     out_csv = out_dir / f"flights_origins_{year}.csv"
 
     try:
-        flights.to_parquet(out_parquet, index=False)
+        flights.to_parquet(out_parquet, index=False, engine="pyarrow")
         out_path = out_parquet
-    except (ImportError, ValueError) as exc:
-        print(f"parquet unavailable ({exc}); writing CSV instead")
+    except Exception as exc:  # noqa: BLE001 - fall back for any parquet engine issue
+        print(f"parquet write failed ({type(exc).__name__}: {exc}); writing CSV instead")
         flights.to_csv(out_csv, index=False)
         out_path = out_csv
 
@@ -116,6 +120,19 @@ def build_sample(
         f"origins={sorted(flights['Origin'].unique())})"
     )
     return out_path
+
+
+def default_sample_path(year: int = ANALYSIS_YEAR, out_dir: Path | None = None) -> Path | None:
+    """Return existing processed sample path (parquet preferred), else None."""
+    _, processed = project_paths()
+    out_dir = out_dir or processed
+    parquet = out_dir / f"flights_origins_{year}.parquet"
+    csv = out_dir / f"flights_origins_{year}.csv"
+    if parquet.exists():
+        return parquet
+    if csv.exists():
+        return csv
+    return None
 
 
 def main() -> int:
