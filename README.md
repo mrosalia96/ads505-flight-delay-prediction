@@ -84,11 +84,12 @@ ads505-flight-delay-prediction/
 
    - [`notebooks/technical_notebook.ipynb`](notebooks/technical_notebook.ipynb)
 
-4. Optional: download BTS monthly ZIPs before the data-load section:
+4. Download BTS monthly ZIPs, then build the filtered origin sample:
 
    ```bash
    python src/download_bts.py --year 2023 --months 1   # smoke test
    python src/download_bts.py --year 2023              # full year
+   python src/build_flights_sample.py --year 2023      # → data/processed/
    ```
 
 Re-run from a fresh kernel when validating reproducibility.

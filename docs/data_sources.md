@@ -91,12 +91,23 @@ data/raw/noaa/<station_id>_2023.csv
 
 National Oceanic and Atmospheric Administration, National Centers for Environmental Information. (n.d.). *Local climatological data* [Data set]. https://www.ncei.noaa.gov/
 
+## Processed flight sample (built locally)
+
+After downloading all 12 monthly ZIPs for 2023:
+
+```bash
+python src/build_flights_sample.py --year 2023
+```
+
+Writes `data/processed/flights_origins_2023.parquet` (gitignored).  
+**Retrieval / build note:** BTS ZIPs downloaded 2026-10-18; filtered sample has **914,796** rows for origins SAN, LAX, PHX, DEN, SEA.
+
 ## Reproducibility checklist
 
 1. Create `data/raw/bts/` and `data/raw/noaa/` if they do not exist.
-2. Download 2023 monthly BTS files; filter to the five origin airports.
-3. Download 2023 NOAA extracts for stations serving those airports.
-4. Update this file with exact filenames, station IDs, and retrieval dates.
+2. Download 2023 monthly BTS files (`python src/download_bts.py --year 2023`).
+3. Build the filtered sample (`python src/build_flights_sample.py --year 2023`).
+4. Download 2023 NOAA extracts for stations serving those airports (next step).
 5. Continue analysis in `notebooks/technical_notebook.ipynb` (built section by section; re-run from a clean kernel).
 
 ## Notes on leakage
