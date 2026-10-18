@@ -90,6 +90,8 @@ ads505-flight-delay-prediction/
    python src/download_bts.py --year 2023 --months 1   # smoke test
    python src/download_bts.py --year 2023              # full year
    python src/build_flights_sample.py --year 2023      # → data/processed/
+   python src/download_weather.py --year 2023          # NOAA ASOS via IEM
+   python src/build_weather_hourly.py --year 2023
    ```
 
 Re-run from a fresh kernel when validating reproducibility.

@@ -62,34 +62,43 @@ U.S. Department of Transportation, Bureau of Transportation Statistics. (n.d.). 
 
 *(Confirm retrieval year/month in the final brief and notebook once downloads are complete.)*
 
-## Source 2 — NOAA / NCEI weather observations
+## Source 2 — NOAA ASOS hourly weather (via IEM)
 
-**Name:** Local Climatological Data / station observations (NCEI)  
-**Publisher:** National Oceanic and Atmospheric Administration, National Centers for Environmental Information (NCEI)  
-**Access:** https://www.ncei.noaa.gov/  
+**Name:** Automated Surface Observing System (ASOS) METARs  
+**Publisher:** National Oceanic and Atmospheric Administration (NOAA) ASOS network  
+**Access path used:** Iowa Environmental Mesonet (IEM) ASOS request service (public redistribution of NOAA ASOS)  
+https://mesonet.agron.iastate.edu/request/download.phtml  
 **Local path:** `data/raw/noaa/`
 
-### Planned stations (near origin airports)
+### Stations (airport ASOS ids, local timezone for hour alignment)
 
-| Airport | Approx. area | Notes |
-|---------|--------------|--------|
-| SAN | San Diego, CA | Prefer station closest to SAN with continuous 2023 coverage |
-| LAX | Los Angeles, CA | Same |
-| PHX | Phoenix, AZ | Same |
-| DEN | Denver, CO | Same |
-| SEA | Seattle, WA | Same |
+| Origin | ASOS station | Timezone |
+|--------|--------------|----------|
+| SAN | SAN | America/Los_Angeles |
+| LAX | LAX | America/Los_Angeles |
+| PHX | PHX | America/Phoenix |
+| DEN | DEN | America/Denver |
+| SEA | SEA | America/Los_Angeles |
 
-Variables of interest: temperature, wind speed, precipitation / weather indicators aligned to departure date (and hour if using hourly LCD).
+**Variables pulled:** `tmpf` (temp °F), `dwpf` (dewpoint °F), `sknt` (wind speed knots), `p01i` (hourly precip inches), `vsby` (visibility miles).
 
-Exact station IDs will be recorded here after download, for example:
+### Download / build
 
-```text
-data/raw/noaa/<station_id>_2023.csv
+```bash
+python src/download_weather.py --year 2023
+python src/build_weather_hourly.py --year 2023
+# → data/processed/weather_hourly_2023.parquet
 ```
+
+Raw files look like `data/raw/noaa/asos_SAN_2023.csv`.  
+**Retrieval note:** downloaded 2026-10-18; hourly aggregate has **43,661** rows.
+
+Join key to flights: `(Origin, FlightDate, crs_dep_hour)` ↔ `(Origin, weather_date, weather_hour)`.
 
 ### APA 7 dataset reference (draft)
 
-National Oceanic and Atmospheric Administration, National Centers for Environmental Information. (n.d.). *Local climatological data* [Data set]. https://www.ncei.noaa.gov/
+Iowa Environmental Mesonet. (n.d.). *ASOS network data* [Data set]. Iowa State University. https://mesonet.agron.iastate.edu/  
+(Underlying observations: NOAA Automated Surface Observing System.)
 
 ## Processed flight sample (built locally)
 
@@ -107,7 +116,7 @@ Writes `data/processed/flights_origins_2023.parquet` (gitignored).
 1. Create `data/raw/bts/` and `data/raw/noaa/` if they do not exist.
 2. Download 2023 monthly BTS files (`python src/download_bts.py --year 2023`).
 3. Build the filtered sample (`python src/build_flights_sample.py --year 2023`).
-4. Download 2023 NOAA extracts for stations serving those airports (next step).
+4. Download ASOS weather and build hourly table (`download_weather.py`, `build_weather_hourly.py`).
 5. Continue analysis in `notebooks/technical_notebook.ipynb` (built section by section; re-run from a clean kernel).
 
 ## Notes on leakage
