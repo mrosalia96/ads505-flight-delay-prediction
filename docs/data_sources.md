@@ -56,11 +56,11 @@ data/raw/bts/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2023_1.z
 data/raw/bts/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2023_12.zip
 ```
 
-### APA 7 dataset reference (draft)
+### APA 7 dataset reference
 
 U.S. Department of Transportation, Bureau of Transportation Statistics. (n.d.). *Airline on-time performance data* [Data set]. https://www.transtats.bts.gov/
 
-*(Confirm retrieval year/month in the final brief and notebook once downloads are complete.)*
+*(2023 monthly files retrieved 2026-10-18 for this project.)*
 
 ## Source 2 — NOAA ASOS hourly weather (via IEM)
 
@@ -95,10 +95,10 @@ Raw files look like `data/raw/noaa/asos_SAN_2023.csv`.
 
 Join key to flights: `(Origin, FlightDate, crs_dep_hour)` ↔ `(Origin, weather_date, weather_hour)`.
 
-### APA 7 dataset reference (draft)
+### APA 7 dataset reference
 
 Iowa Environmental Mesonet. (n.d.). *ASOS network data* [Data set]. Iowa State University. https://mesonet.agron.iastate.edu/  
-(Underlying observations: NOAA Automated Surface Observing System.)
+(Underlying observations: NOAA Automated Surface Observing System; retrieved 2026-10-18.)
 
 ## Processed flight sample (built locally)
 

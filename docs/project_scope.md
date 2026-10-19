@@ -12,7 +12,7 @@ Airlines and airports learn about many delays only as they unfold. A pre-departu
 
 ## Decision the model supports
 
-For each scheduled departure in the planning window, flag **elevated delay risk** (≥ 15 minutes past scheduled departure) so the stakeholder can:
+Intended use: a **same-day watch list** refreshed before each busy departure window. For each scheduled departure, flag **elevated delay risk** (≥ 15 minutes past scheduled departure) so the stakeholder can:
 
 - Pre-position gate / ramp staffing
 - Adjust turnaround buffers on high-risk turns
@@ -29,7 +29,7 @@ Exact operational playbook is outside the data; the model informs **where to loo
 
 **Implication:** Prefer models and thresholds that reduce costly misses (false negatives) when trade-offs appear, and report precision/recall (or cost-weighted metrics) against a simple baseline (e.g., always predict majority class, or a rules baseline using historical delay rate by airport/hour).
 
-These assumptions will be restated in the business brief with clearer dollar framing once baseline delay rates are known from EDA.
+These assumptions are carried into the business brief without airline-specific dollar costs (proprietary). Evaluation emphasizes recall under a usable flag-rate cap versus do-nothing and random baselines.
 
 ## In scope
 
