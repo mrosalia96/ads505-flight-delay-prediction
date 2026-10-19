@@ -1,6 +1,6 @@
 # Flight Departure Delay Prediction
 
-Predict whether a U.S. flight will depart 15+ minutes late using Bureau of Transportation Statistics (BTS) on-time data and NOAA ASOS weather at the origin. Built for airline and airport operations triage (staffing, buffers, passenger messaging).
+Predict whether a U.S. flight will depart 15+ minutes late using Bureau of Transportation Statistics (BTS) on-time data and NOAA ASOS weather at the origin. Built for a same-day watch list before busy departure windows (staffing, buffers, passenger messaging).
 
 **Author:** Michael Rosalia  
 **Repo:** https://github.com/mrosalia96/ads505-flight-delay-prediction
